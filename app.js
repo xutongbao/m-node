@@ -21,7 +21,7 @@ let userList = [
 
 let myBooks = []
 
-app.use(history())
+//app.use(history())
 app.use(express.static('public'))
 app.use(cors())
 app.use(bodyParser.json())
@@ -162,8 +162,8 @@ app.post('/api/test', (req, res) => {
   })
 })
 
-app.listen(81, () => {
-  console.log(81)
+app.listen(process.env.PORT, () => {
+  console.log(process.env.PORT)
 })
 
 
