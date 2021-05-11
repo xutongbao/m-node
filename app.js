@@ -66,7 +66,9 @@ app.post('/api/my_books', (req, res) => {
   let index = myBooks.findIndex(item => item.id === book.id)
   if (index >= 0) {
     myBooks[index].count += book.count
+    myBooks[index].checked = true
   } else {
+    book.checked = true
     myBooks.push(book)
   }
   
@@ -104,6 +106,7 @@ app.patch('/api/my_books', (req, res) => {
   switch (operation) {
     case 'add':
       myBooks[index].count++
+      myBooks[index].checked = true
       break;
     case 'sub':
       if (myBooks[index].count > 1) {
@@ -162,9 +165,12 @@ app.post('/api/test', (req, res) => {
   })
 })
 
+//启动命令：set PORT=3000 && node app
 app.listen(process.env.PORT, () => {
   console.log(process.env.PORT)
 })
+
+
 
 
 
