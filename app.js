@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const history = require('connect-history-api-fallback')
 const { bookMallData, bookMallDetailData } = require('./data')
+const { voiceData } = require('./testData')
 
 const app = express()
 
@@ -21,10 +22,16 @@ let userList = [
 
 let myBooks = []
 
-app.use(history())
+//app.use(history())
 app.use(express.static('public'))
 app.use(cors())
 app.use(bodyParser.json())
+
+app.use((res, req, next) => {
+  setTimeout(() => {
+    next()
+  }, 1000)
+})
 
 app.post('/api/login', (req, res) => {
   let { username, password } = req.body
@@ -154,15 +161,7 @@ app.get('/api/detail/:id', (req, res) => {
 
 //测试
 app.post('/api/test', (req, res) => {
-  let { title } = req.body
-  res.send({
-    state: 1,
-    data: {
-      title,
-      name: 'vue 3.0'
-    },
-    message: '获取数据成功'
-  })
+  res.send(voiceData)
 })
 
 //启动命令：set PORT=3000 && node app
